@@ -1,0 +1,35 @@
+using System;
+
+class GuessNumberGame
+{
+    static void Main()
+    {
+        Random random = new Random();
+        int tutulanSayi = random.Next(1, 101);
+        int tahmin = 0;
+        int tahminSayisi = 0;
+
+        Console.WriteLine("Bilgisayar 1 ile 100 arasında bir sayı tuttu. Tahmin et!");
+
+        do
+        {
+            Console.WriteLine("Tahmininizi girin:");
+            tahmin = Convert.ToInt32(Console.ReadLine());
+            tahminSayisi++;
+
+            if (tahmin < tutulanSayi)
+            {
+                Console.WriteLine("Daha büyük bir sayı girin.");
+            }
+            else if (tahmin > tutulanSayi)
+            {
+                Console.WriteLine("Daha küçük bir sayı girin.");
+            }
+            else
+            {
+                Console.WriteLine("Tebrikler! Sayıyı doğru tahmin ettiniz.");
+                Console.WriteLine("Tahmin sayısı: " + tahminSayisi);
+            }
+        } while (tahmin != tutulanSayi);
+    }
+}
