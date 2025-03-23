@@ -1,0 +1,54 @@
+using System;
+
+class User
+{
+    private string adSoyad;
+    private int yas;
+
+    public string Email { get; set; }
+
+    public string AdSoyad
+    {
+        get { return adSoyad; }
+        set { adSoyad = value; }
+    }
+
+    public int Yas
+    {
+        get { return yas; }
+        set { yas = value; }
+    }
+
+    public void BilgileriGoster()
+    {
+        Console.WriteLine("Ad Soyad: " + adSoyad);
+        Console.WriteLine("Yaş: " + yas);
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        User user = new User();
+        user.AdSoyad = "John Doe";
+        user.Yas = 30;
+        user.Email = "john.doe@example.com";
+
+        user.BilgileriGoster();
+    }
+}
+
+____
+
+
+public: Herkesin erişebileceği.
+Örnek: Sokak - Herkes girebilir.
+private: Yalnızca sınıf içinde erişilebilir.
+Örnek: Yatak odası - Sadece ev halkı girebilir.
+protected: Yalnızca sınıf ve türetilmiş sınıflardan erişilebilir.
+Örnek: Aile içi gelenek - Aile üyeleri erişebilir.
+internal: Aynı projedeki sınıflardan erişilebilir.
+Örnek: Şirket içi bilgi - Sadece çalışanlar erişebilir.
+OOP’deki Rolü:
+Erişim belirleyiciler, encapsulation (kapsülleme) ilkesini destekler. Veriyi gizleyerek dışarıdan kontrollü erişim sağlar, böylece kod daha güvenli, anlaşılır ve sürdürülebilir olur.
