@@ -1,0 +1,249 @@
+GARBAGE COLLECTOR
+
+Program tarafından artık ihtiyaç duyulmayan nesnelere ayrılan belleği otomatik olarak boşaltır. Yerleşik belleği kurtarır. Sızıntıyı önler. Performansı optimize eder. Heap memory verimli kullanılmasını sağlar.
+Yüksek seviyeli dillerde var C# gibi.
+Nesneleri generation bazlı yönetir. Üç tür vardır.
+
+Generation 0 (Gen 0)
+Küçük - kısa ömürlü nesneler burada.
+En yeniler aynı zamanda en sık temizlenen.
+
+Generation 1 (Gen 1)
+Gen 02daki nesneleri GC temizlenmezse buraya gelir.
+Orta ömürlü nesneler.
+
+Generation 2 (Gen 2)
+Uzun ömürlü ve büyük nesneler. Uzun süre kullanılan nesneler.
+En az temizlenen.
+
+Normalde otomatik çalışır ama manuelde çağırabilir.
+
+Büyük nesnelerde performans sıkıntısı yaşamamak için IDisopable ve using kullanılır.
+85KBdan büyük nesneler LARGE OBJECT HEAP (LOH) da saklanır ve buradaki nesneler Gen 2’ye yerleşir.
+
+GC çalışırken ana iş parçacığı durdurulabilir.(STOP THE WORLD)
+
+Gerçek zamanlı uygulamalarda gecikme olabilir.
+
+Normalde GC nesneleri temzilediğinde referanslarda silinir ancak bazı nesnelerin tamamen temizlenmesi için WeakReference kullanılabilir.
+
+
+GENERİC CLASSES AND GENERİC METHODS
+
+Veri tiplerini önceden belirlemek yerine derleme zamanında belirler.
+
+Genericler tip güvenliğini, kod tekrarınının azalmasını , yeniden kullanılabilmesini sağlar.
+
+Type safety yanlış türde veri kullanımı hatalarını derleme aşamasında yok eder.
+
+Unboxing - Boxing işlemlerini azaltır. Gereksiz yere bellek kullanmaktan kaçar.
+
+Boxing 
+Değer tipinin referans tipine dönüştürülmesi.
+Stackde tutulan değer heape kopyalanır.
+
+Unboxing:
+Referans tipindeki değerin tekrar değer tipine dönüştürülmesi.
+
+Boxing işlemi heap bellek tasis eder.
+Unboxing ek casting gerektirir bu da performans düşürür.
+Bunları generic kullanımıyla önleyebiliriz.
+
+Casting
+Bir veri türünü başka bir veri türüne dönüştürmek. İki tür.
+Implict casting küçük veri türünü büyük veri türüne çevirme otomatik gerçekleştir.
+Explicit casting büyük veri türünü küçüğe dönüştürme manuel olarak gerçekleşir.
+
+Esnek kullanımı var.
+
+Anlaşılırlık açısından Type T ile yazılır.
+<> Generic yapıları tanımlamak için kullanılır.
+
+İnterface olarakda kullanılabilir.
+
+
+
+
+
+----
+
+/* 2- Method Overloading ile Matematik Sınıfı
+   📌 Görev:
+   - Matematik işlemleri için bir sınıf oluşturun.
+   - Toplama,Çarpma işlemleri için method overloading uygulayın.
+   - İki ve üç parametreli versiyonlarını oluşturun.
+   - Farklı veri tiplerinde (int, double) kullanımı gösterin.
+   
+   */
+   
+   using System;
+  
+
+
+   class Islemler
+   {
+      public Islemler()
+      {
+         Console.WriteLine("Matematik işlemlerimiz burada:");
+      }
+      
+      public int toplama(int a, int b)
+      {
+         return a + b;
+      }
+
+      public double toplama(double a, double b)
+      {
+         return a + b;
+      } 
+      
+      public int toplama(int a, int b, int c)
+      {
+         return a + b + c;
+      }
+      
+      public double toplama(double a, double b, double c)
+      {
+         return a + b + c;
+      }
+      public int carpma(int a, int b)
+      {
+         return a * b;
+      }
+      
+      public double carpma (double a, double b)
+      {
+         return a * b;
+      } 
+
+      public int carpma(int a, int b, int c)
+      {
+         return a * b * c;
+      }
+      
+      public double carpma (double a, double b, double c)
+      {
+         return a * b * c;
+      }
+   }
+
+   
+
+   class Program
+   {
+      static void Main(string[] args)
+      { Islemler nsn = new Islemler();
+      Console.WriteLine(nsn.toplama(6,5));
+      Console.WriteLine(nsn.toplama(23543,3456));
+      Console.WriteLine(nsn.toplama(5,9,0));
+      Console.WriteLine(nsn.toplama(5678,678,89));
+      
+      
+      Console.WriteLine(nsn.carpma(9,5));
+      Console.WriteLine(nsn.carpma(445,3453));
+      Console.WriteLine(nsn.carpma(34532,6535));
+      Console.WriteLine(nsn.carpma(5,75654));
+      
+      
+      
+         
+      }
+   }
+
+
+----
+
+
+/* Ödevler 🚀
+   🔹 1- C#’ta Composition Kullanarak Araç Oluşturma
+   📌 Görev:
+   - Kapı, Pencere, Kasa ve Marka gibi bileşenleri ayrı sınıflar olarak tanımlayın.
+   - Araba sınıfı bu bileşenleri içermeli ve Composition kullanılarak oluşturulmalıdır.
+   - Constructor kullanarak BMW X5 modelini oluşturup ekrana aşağıdaki gibi yazdırın:
+   🖥 Çıktı Örneği:
+
+   "Arabanın markası BMW, modeli X5, kapı sayısı 4, pencere sayısı 4, kasası sedan, fiyatı 2.000.000 TL’dir."*/
+   
+
+using System;
+
+class Kapi
+{
+    public int Count { get; set; }
+    public Kapi(int count)
+    {
+        this.Count = count;
+    }
+}
+
+class Pencere
+{
+    public int Count { get; set; }
+    public Pencere(int count)
+    {
+        this.Count = count;
+    }
+}
+
+class Kasa
+{
+    public string Tip { get; set; }
+    public Kasa(string tip)
+    {
+        this.Tip = tip;
+    }
+}
+
+class Marka
+{
+    public string Ad { get; set; }
+    public string Model { get; set; }
+    
+    public Marka(string ad, string model)
+    {
+        this.Ad = ad;
+        this.Model = model;
+    }
+}
+
+class Araba
+{
+    public Marka Marka { get; set; }
+    public Kapi Kapi { get; set; }
+    public Pencere Pencere { get; set; }
+    public Kasa Kasa { get; set; }
+    public double Fiyat { get; set; }
+
+    public Araba(Marka marka, Kapi kapi, Pencere pencere, Kasa kasa, double fiyat)
+    {
+        this.Marka = marka;
+        this.Kapi = kapi;
+        this.Pencere = pencere;
+        this.Kasa = kasa;
+        this.Fiyat = fiyat;
+    }
+
+    public void BilgileriYazdir()
+    {
+        Console.WriteLine($"Arabanın markası {Marka.Ad}, modeli {Marka.Model}, kapı sayısı {Kapi.Count}, pencere sayısı {Pencere.Count}, kasası {Kasa.Tip}, fiyatı {Fiyat:N0} TL’dir.");
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        Marka bmw = new Marka("BMW", "X5");
+        Kapi kapi = new Kapi(4);
+        Pencere pencere = new Pencere(4);
+        Kasa kasa = new Kasa("Sedan");
+        double fiyat = 2000000;
+
+        Araba araba = new Araba(bmw, kapi, pencere, kasa, fiyat);
+        araba.BilgileriYazdir();
+    }
+}
+
+    
+    
+}
