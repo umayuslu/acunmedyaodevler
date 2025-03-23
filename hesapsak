@@ -1,0 +1,47 @@
+using System;
+
+class Calculator
+{
+    static void Main()
+    {
+        Console.WriteLine("İlk sayıyı girin:");
+        int sayi1 = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("İkinci sayıyı girin:");
+        int sayi2 = Convert.ToInt32(Console.ReadLine());
+
+        Console.WriteLine("Yapmak istediğiniz işlemi seçin:");
+        Console.WriteLine("1. Toplama (+)");
+        Console.WriteLine("2. Çıkarma (-)");
+        Console.WriteLine("3. Çarpma (*)");
+        Console.WriteLine("4. Bölme (/)");
+
+        int secim = Convert.ToInt32(Console.ReadLine());
+
+        switch (secim)
+        {
+            case 1:
+                Console.WriteLine("Toplama sonucu: " + (sayi1 + sayi2));
+                break;
+            case 2:
+                Console.WriteLine("Çıkarma sonucu: " + (sayi1 - sayi2));
+                break;
+            case 3:
+                Console.WriteLine("Çarpma sonucu: " + (sayi1 * sayi2));
+                break;
+            case 4:
+                if (sayi2 != 0)
+                {
+                    Console.WriteLine("Bölme sonucu: " + (sayi1 / sayi2));
+                }
+                else
+                {
+                    Console.WriteLine("Bir sayı sıfıra bölünemez.");
+                }
+                break;
+            default:
+                Console.WriteLine("Geçersiz seçim.");
+                break;
+        }
+    }
+}
