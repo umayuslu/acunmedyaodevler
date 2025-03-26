@@ -1,83 +1,47 @@
-﻿/* 2- Method Overloading ile Matematik Sınıfı
-   📌 Görev:
-   - Matematik işlemleri için bir sınıf oluşturun.
-   - Toplama,Çarpma işlemleri için method overloading uygulayın.
-   - İki ve üç parametreli versiyonlarını oluşturun.
-   - Farklı veri tiplerinde (int, double) kullanımı gösterin.
-   
-   */
-   
-   using System;
-  
+﻿// See https://aka.ms/new-console-template for more information
 
+/*Ad
+   Bir Araba (Car) sınıfı oluşturun. Bu sınıf içinde aşağıdaki özellikler yer almalıdır:
+   
+   Marka (string) → Arabanın markasını tutar.
+   Model (string) → Arabanın modelini tutar.
+   Benzin Harcaması (FuelConsumption) (double) → 100 km başına harcanan yakıt miktarını tutar.
+   Toplam Mesafe (TotalDistance) (double) → Arabanın toplamda kaç km yol gittiğini tutar.
+   Daha sonra, bir List<Car> oluşturup en az 3 farklı araba ekleyin.
+   Son olarak, her arabanın toplamda ne kadar benzin harcadığını hesaplayarak ekrana yazdırın. */
+   
+class Araba
+{
+   public string Marka { get; set; }
+   public string Model { get; set; }
+   public double Benzinharcamasi { get; set; }
+   public double Totalmesafe { get; set; }
 
-   class Islemler
+   public double toplambenzintuketimi()
    {
-      public Islemler()
-      {
-         Console.WriteLine("Matematik işlemlerimiz burada:");
-      }
-      
-      public int toplama(int a, int b)
-      {
-         return a + b;
-      }
+      return (Totalmesafe/100)* Benzinharcamasi;
+   
+}
 
-      public double toplama(double a, double b)
-      {
-         return a + b;
-      } 
-      
-      public int toplama(int a, int b, int c)
-      {
-         return a + b + c;
-      }
-      
-      public double toplama(double a, double b, double c)
-      {
-         return a + b + c;
-      }
-      public int carpma(int a, int b)
-      {
-         return a * b;
-      }
-      
-      public double carpma (double a, double b)
-      {
-         return a * b;
-      } 
 
-      public int carpma(int a, int b, int c)
+
+}
+
+class Program
+{
+   static void Main(string[] args)
+   {
+
+      List<Araba> arabalar = new List<Araba>()
       {
-         return a * b * c;
-      }
-      
-      public double carpma (double a, double b, double c)
+         new Araba { Marka = "Toyota", Model = "Corolla", Benzinharcamasi = 6.5, Totalmesafe = 500 },
+         new Araba { Marka = "BMW", Model = "320i", Benzinharcamasi = 8.0, Totalmesafe = 800 },
+         new Araba { Marka = "Ford", Model = "Focus", Benzinharcamasi = 7.2, Totalmesafe = 600 }
+      };
+
+      foreach (var araba in arabalar)
       {
-         return a * b * c;
+         Console.WriteLine($"Marka:{araba.Marka}  Model:{araba.Model}   Benzin Harcaması:{araba.Benzinharcamasi}    Toplam Mesafe:{araba.Totalmesafe}   Toplam Benzin Tüketimi:{araba.toplambenzintuketimi()}");
       }
    }
-
-   
-
-   class Program
-   {
-      static void Main(string[] args)
-      { Islemler nsn = new Islemler();
-      Console.WriteLine(nsn.toplama(6,5));
-      Console.WriteLine(nsn.toplama(23543,3456));
-      Console.WriteLine(nsn.toplama(5,9,0));
-      Console.WriteLine(nsn.toplama(5678,678,89));
-      
-      
-      Console.WriteLine(nsn.carpma(9,5));
-      Console.WriteLine(nsn.carpma(445,3453));
-      Console.WriteLine(nsn.carpma(34532,6535));
-      Console.WriteLine(nsn.carpma(5,75654));
-      
-      
-      
-         
-      }
-   }
-   
+}
