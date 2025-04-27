@@ -1,111 +1,55 @@
-using System;
+Inner Class: Bir sınıfın başka bir sınıfın içinde tanımlanmış olan sınıfıdır. 
+Anonymous Class: İsimsiz, yalnızca bir kez kullanılan ve genellikle hemen bir nesne oluşturmak için tanımlanan sınıftır.
+Static Class: Sadece static üyeleri barındıran, nesne oluşturulamayan sınıftır.
+Static Method: Bir sınıfın örneğine bağlı olmadan, sınıfın kendisine ait olan ve sınıf adı üzerinden çağrılabilen metottur.
+Static Variable: Sınıfın her örneği için paylaşılan, sınıf düzeyinde tanımlanan ve değerini tüm nesneler arasında koruyan değişkendir.
 
-namespace Car
+
+
+
+Attribute'lar, bir sınıf, metod, property (özellik) gibi yapılara ekstra bilgi eklememize yarayan yapılardır. Yani, bu yapılara etiket (label) gibi bir şey eklemiş oluruz. Normalde yorum satırları sadece kodu okuyan için bilgi verir, ama attribute'lar program tarafından da okunabilir. Bu da onları çok daha güçlü ve esnek hale getirir.
+Attribute'lar genellikle programın çeşitli bölümlerinde ek bilgi sağlamak amacıyla kullanılır. Mesela, eski metodları işaretlemek, veri doğrulama yapmak, bir nesneyi kaydedilebilir yapmak gibi durumlarda işimize yarar.
+
+- **[Obsolete]**: Bu attribute, artık kullanılmayan veya eski metodları işaretler. Yani, bu metod kullanıldığında derleyici bir uyarı verir, ki "bu metod eskidi" denmiş olur.
+- **[Required]**: Bu attribute, bir property’nin (özelliğin) boş geçilemeyeceğini belirtir. Örneğin, bir formda bir alan boş geçilmemelidir, bunun için kullanılabilir.
+- **[Serializable]**: Bu attribute, bir nesnenin kaydedilebileceğini veya başka bir ortama aktarılabileceğini belirtir. Yani, bu nesne "seri hale getirilebilir."
+
+
+[AttributeUsage(AttributeTargets.Property)]
+public class MaxLengthAttribute : Attribute
 {
+    public int Length { get; }
     
-    public class Car
+    public MaxLengthAttribute(int length)
     {
-        public string Name { get; set; }
-
-        public Car(string name)
-        {
-            Name = name;
-        }
-
-        public virtual string Type()
-        {
-            return "Vites türü belirtilmemiş.";
-        }
-    }
-
-    
-    public class BMW : Car
-    {
-        public BMW() : base("BMW") { }
-
-        public override string Type()
-        {
-            return "Düz viteslidir.";
-        }
-    }
-
-    
-    public class Porsche : Car
-    {
-        public Porsche() : base("Porsche") { }
-
-        public override string Type()
-        {
-            return "Otomatik viteslidir.";
-        }
-    }
-
-    
-    public class Mercedes : Car
-    {
-        public Mercedes() : base("Mercedes") { }
-
-        public override string Type()
-        {
-            return "Otomatik viteslidir.";
-        }
-    }
-
-    
-    public class Togg : Car
-    {
-        public Togg() : base("Togg") { }
-
-        public override string Type()
-        {
-            return "Otomatik viteslidir.";
-        }
-    }
-
-    
-    public class Audi : Car
-    {
-        public Audi() : base("Audi") { }
-
-        public override string Type()
-        {
-            return "Otomatik viteslidir.";
-        }
-    }
-
-    
-    public class Toyota : Car
-    {
-        public Toyota() : base("Toyota") { }
-
-        public override string Type()
-        {
-            return "Otomatik viteslidir.";
-        }
-    }
-
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            
-            BMW bmw = new BMW();
-            Console.WriteLine($"{bmw.Name}  {bmw.Type()}");
-
-            Porsche porsche = new Porsche();
-            Console.WriteLine($"{porsche.Name}  {porsche.Type()}");
-
-            Mercedes mercedes = new Mercedes();
-            Console.WriteLine($"{mercedes.Name}  {mercedes.Type()}");
-
-            Togg togg = new Togg();
-            Console.WriteLine($"{togg.Name}  {togg.Type()}");
-
-            Audi audi = new Audi();
-            Console.WriteLine($"{audi.Name}  {audi.Type()}");
-
-            Toyota toyota = new Toyota();
-            Console.WriteLine($"{toyota.Name}  {toyota.Type()}");
-        }
+        Length = length;
     }
 }
+
+Attribute yazarken `Attribute` kelimesini eklemeye gerek yoktur. Mesela yukarıdaki sınıfı şu şekilde kullanabiliriz:
+
+[MaxLength(10)]
+public string Name { get; set; }
+
+
+var propertyInfo = typeof(User).GetProperty("Name");
+var attributes = propertyInfo.GetCustomAttributes(typeof(MaxLengthAttribute), false);
+
+if (attributes.Length > 0)
+{
+    var maxLengthAttr = (MaxLengthAttribute)attributes[0];
+    Console.WriteLine($"Max Length: {maxLengthAttr.Length}");
+}
+
+
+
+if (propertyInfo.IsDefined(typeof(RequiredAttribute), false))
+{
+    if (string.IsNullOrEmpty(value))
+    {
+        Console.WriteLine("Bu alan boş geçilemez.");
+    }
+}
+
+
+
